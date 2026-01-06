@@ -1,1 +1,162 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WBHRB Dialysis CBT Mock Test | Medinfo Bengali</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#e9edf3;margin:0}
+.container{max-width:900px;margin:15px auto;background:#fff;padding:20px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+h2{text-align:center;color:#0b3c6d}
+#timer{text-align:center;background:#fff3f3;border:1px solid #ffcccc;padding:8px;margin-bottom:10px;color:#b30000;font-weight:bold}
+#palette{text-align:center;margin-bottom:15px}
+.palette-btn{width:36px;height:36px;margin:4px;border-radius:4px;border:none;font-size:14px}
+.palette-grey{background:#d9d9d9}
+.palette-blue{background:#0b5ed7;color:#fff}
+.question{font-size:18px;margin-bottom:15px}
+.options label{display:block;background:#f6f7f9;border:1px solid #dcdcdc;padding:10px;margin-bottom:10px;border-radius:4px}
+.navigation{display:flex;justify-content:space-between;margin-top:20px}
+button{padding:10px 22px;font-size:15px;border:none;border-radius:4px}
+button:last-child{background:#0b5ed7;color:#fff}
+#result{text-align:center;margin-top:30px}
+@media(min-width:768px){
+ body::before{content:"⚠ Please open this test on a mobile device for real CBT experience.";display:block;text-align:center;background:#fff3cd;padding:15px}
+ .container{display:none}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>WBHRB Dialysis CBT Mock Test</h2>
+<p style="text-align:center;font-size:14px;">
+Welcome to <b>Medinfo Bengali</b> – Practice like the real TCS CBT exam
+</p>
+
+<div id="timer">⏱ Time Left: 60:00</div>
+<div id="palette"></div>
+<div id="quiz"></div>
+
+<div class="navigation">
+<button onclick="prevQuestion()">Previous</button>
+<button onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="result"></div>
+</div>
+
+<script>
+const questions = [
+{q:"Dialysis removes waste mainly by which mechanism?",o:["Active transport","Diffusion & ultrafiltration","Endocytosis","Pinocytosis"],a:1},
+{q:"Ideal long-term vascular access for hemodialysis is:",o:["Peripheral vein","Arteriovenous fistula","Central venous catheter","Port"],a:1},
+{q:"Normal blood flow rate during hemodialysis is:",o:["50–100 mL/min","150–300 mL/min","400–600 mL/min","700–900 mL/min"],a:1},
+{q:"Dialysis disequilibrium syndrome occurs due to:",o:["Rapid urea removal","Hyperkalemia","Infection","Blood loss"],a:0},
+{q:"Cloudy PD effluent indicates:",o:["Normal","Peritonitis","Protein loss","Hemorrhage"],a:1},
+{q:"Ultrafiltration refers to:",o:["Solute diffusion","Fluid removal","Electrolyte exchange","Blood warming"],a:1},
+{q:"Peritoneal dialysis membrane is:",o:["Dialyzer","Peritoneum","Plastic","Synthetic"],a:1},
+{q:"Heparin is used during dialysis to:",o:["Increase BP","Prevent clotting","Increase UF","Reduce pain"],a:1},
+{q:"Kt/V measures:",o:["Anemia","Dialysis adequacy","Fluid overload","Access patency"],a:1},
+{q:"Most common cause of intradialytic hypotension:",o:["Infection","Rapid UF","High sodium","Heparin"],a:1},
+
+{q:"Normal interdialytic weight gain:",o:["<0.5 kg","1–1.5 kg","3–4 kg",">5 kg"],a:1},
+{q:"AV fistula maturity period:",o:["Days","2–6 weeks","6 months","1 year"],a:1},
+{q:"Blood leak detector checks:",o:["Air in blood","Blood in dialysate","High BP","Temperature"],a:1},
+{q:"Dialysate bicarbonate corrects:",o:["Hypoglycemia","Metabolic acidosis","Hyperkalemia","Anemia"],a:1},
+{q:"Major solute removed in dialysis:",o:["Calcium","Sodium","Urea","Iron"],a:2},
+{q:"Muscle cramps during dialysis due to:",o:["Low calcium","Rapid fluid removal","High glucose","Infection"],a:1},
+{q:"Access thrill indicates:",o:["Infection","Patency","Clot","Leak"],a:1},
+{q:"Avoid BP on AV fistula arm to prevent:",o:["Pain","Thrombosis","Infection","Edema"],a:1},
+{q:"Dialysate potassium kept low to prevent:",o:["Hypocalcemia","Hyperkalemia","Acidosis","Edema"],a:1},
+{q:"Venous pressure alarm indicates:",o:["Air embolism","Clot/kink","Low BP","Low temp"],a:1},
+
+{q:"PD exchange steps:",o:["Fill-dwell-drain","Drain only","Fill only","Flush"],a:0},
+{q:"Peritonitis presents with:",o:["Abdominal pain","Cloudy effluent","Fever","All"],a:3},
+{q:"Anemia in dialysis treated with:",o:["Insulin","Erythropoietin","Heparin","Albumin"],a:1},
+{q:"Water-soluble vitamin lost in dialysis:",o:["A","D","C","K"],a:2},
+{q:"Dialysis adequacy depends on:",o:["Machine size","Blood flow & time","Age","Gender"],a:1},
+{q:"Dry weight means:",o:["Pre-dialysis wt","Post-dialysis wt without excess fluid","BMI","Ideal wt"],a:1},
+{q:"Air embolism sign:",o:["Hypertension","Sudden breathlessness","Fever","Edema"],a:1},
+{q:"Fever during dialysis due to:",o:["Dialysate contamination","Hypoglycemia","UF","Low BP"],a:0},
+{q:"Dialyzer clotting due to:",o:["Low UF","Inadequate heparin","Low temp","High sodium"],a:1},
+{q:"Dialysate temperature high causes:",o:["Hypotension","Hypertension","Shivering","Seizure"],a:0},
+
+{q:"Access site infection sign:",o:["Thrill","Redness","Dry skin","Low BP"],a:1},
+{q:"Best pre-dialysis check:",o:["Height","Vitals & dry weight","X-ray","ECG"],a:1},
+{q:"Post dialysis advice:",o:["Heavy exercise","Adequate rest","High salt","Alcohol"],a:1},
+{q:"Dialysis patients restrict:",o:["Protein","Sodium & potassium","Iron","Vitamin B"],a:1},
+{q:"TMP indicates:",o:["BP","Pressure across membrane","Room pressure","Flow rate"],a:1},
+{q:"Shunt infection complication:",o:["Bleeding","Sepsis","Hypertension","Anemia"],a:1},
+{q:"UF rate means:",o:["Dialysate flow","Fluid removed per hour","Blood flow","TMP"],a:1},
+{q:"PD catheter exit care:",o:["Dry only","Aseptic care","No bath","Antifungal"],a:1},
+{q:"Final indicator of effective dialysis:",o:["Comfort","Improved labs","Machine alarm","Duration"],a:1}
+];
+
+let current=0,answers=new Array(questions.length).fill(null);
+let timeLeft=60*60;
+
+function startTimer(){
+ const t=document.getElementById("timer");
+ const i=setInterval(()=>{
+  let m=Math.floor(timeLeft/60),s=timeLeft%60;
+  t.innerHTML=`⏱ Time Left: ${m}:${s<10?'0':''}${s}`;
+  if(timeLeft===300)alert("⚠ Only 5 minutes left!");
+  timeLeft--;
+  if(timeLeft<0){clearInterval(i);submitTest();}
+ },1000);
+}
+
+function renderPalette(){
+ let h="";
+ for(let i=0;i<questions.length;i++)
+  h+=`<button class="palette-btn ${answers[i]==null?'palette-grey':'palette-blue'}" onclick="jumpTo(${i})">${i+1}</button>`;
+ document.getElementById("palette").innerHTML=h;
+}
+
+function loadQuestion(){
+ const q=questions[current];
+ let h=`<div class="question">${current+1}. ${q.q}</div><div class="options">`;
+ q.o.forEach((op,i)=>{
+  h+=`<label><input type="radio" name="opt" ${answers[current]==i?'checked':''}
+  onclick="answers[${current}]=${i};renderPalette()"> ${op}</label>`;
+ });
+ h+="</div>";
+ document.getElementById("quiz").innerHTML=h;
+ renderPalette();
+}
+
+function nextQuestion(){current<questions.length-1?current++:submitTest();loadQuestion();}
+function prevQuestion(){if(current>0)current--;loadQuestion();}
+function jumpTo(i){current=i;loadQuestion();}
+
+function submitTest(){
+ let c=0,w=0,u=0;
+ questions.forEach((q,i)=>{
+  if(answers[i]==null)u++;
+  else if(answers[i]==q.a)c++;
+  else w++;
+ });
+ let score=(c*2)-(w*0.5); if(score<0)score=0;
+
+ document.getElementById("quiz").innerHTML="";
+ document.querySelector(".navigation").style.display="none";
+ document.getElementById("palette").style.display="none";
+ document.getElementById("timer").style.display="none";
+
+ document.getElementById("result").innerHTML=`
+ <h3>Exam Submitted</h3>
+ <p>Correct: ${c} | Wrong: ${w} | Unattempted: ${u}</p>
+ <h2>Final Score: ${score.toFixed(2)}</h2>
+ <p>If this mock test helped you, please support us</p>
+ <a href="https://youtube.com/@medinfobengali?si=Ta5u1v3_66N0LzaE" target="_blank"
+ style="display:inline-block;background:#cc0000;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;">
+ 🔔 Subscribe – Medinfo Bengali
+ </a>`;
+}
+
+startTimer();
+loadQuestion();
+</script>
+</body>
+</html>
