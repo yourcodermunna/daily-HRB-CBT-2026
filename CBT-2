@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WBHRB Dialysis CBT | Medinfo Bengali</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --blue:#1e5eff;
+  --light-blue:#eaf0ff;
+  --pink:#ffe5e5;
+  --grey:#f4f6f8;
+  --dark:#1a1a1a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
+  background:#f1f4f9;
+  color:var(--dark);
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  background:var(--blue);
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 14px;
+}
+.brand{
+  font-size:14px;
+}
+.logo{
+  background:#0b3c6d;
+  padding:4px 8px;
+  border-radius:50%;
+  margin-right:6px;
+}
+.subscribe-btn{
+  background:#ff0000;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:6px;
+  text-decoration:none;
+  font-size:13px;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding-bottom:30px;
+}
+
+/* ===== CARDS ===== */
+.card{
+  background:#fff;
+  margin:20px;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.center{text-align:center}
+
+/* ===== START CARD ===== */
+.details{
+  list-style:none;
+  padding:0;
+  margin:15px 0;
+  text-align:left;
+  font-size:14px;
+}
+.details li{margin:6px 0}
+.start-btn{
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  padding:14px;
+  width:100%;
+  border-radius:12px;
+  font-size:16px;
+}
+
+/* ===== QUESTION HEADER ===== */
+.q-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:10px 20px;
+}
+.tag{
+  background:var(--light-blue);
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:12px;
+}
+.timer-box{
+  background:var(--light-blue);
+  padding:6px 10px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+/* ===== QUESTION ===== */
+.question{
+  font-size:18px;
+  margin-bottom:15px;
+}
+.option{
+  background:#fff;
+  border:1px solid #ddd;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+.option input{margin-right:8px}
+
+/* ===== PALETTE ===== */
+.palette{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin:20px;
+}
+.pal{
+  padding:12px 0;
+  border-radius:8px;
+  font-weight:bold;
+}
+.na{background:var(--pink);color:#b30000}
+.ans{background:var(--light-blue);color:#0033cc}
+
+/* ===== NAV ===== */
+.nav{
+  display:flex;
+  justify-content:space-between;
+  margin:20px;
+}
+.nav button{
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  background:var(--blue);
+  color:#fff;
+}
+
+/* ===== RESULT ===== */
+.score{
+  font-size:40px;
+  font-weight:700;
+  color:#d35400;
+}
+.bar{
+  height:10px;
+  background:#eee;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:6px;
+}
+.fill{
+  height:100%;
+  width:0;
+  background:var(--blue);
+  animation:fill 1.2s forwards;
+}
+@keyframes fill{
+  from{width:0}
+  to{width:var(--w)}
+}
+
+/* ===== MOBILE ONLY ===== */
+@media(min-width:768px){
+ body::before{
+   content:"⚠ Please open on mobile for real CBT experience.";
+   display:block;
+   background:#fff3cd;
+   padding:15px;
+   text-align:center;
+ }
+ .container{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="logo">M</span> Powered by <b>Medinfo Bengali</b></div>
+  <a class="subscribe-btn" target="_blank"
+     href="https://youtube.com/@medinfobengali?si=Ta5u1v3_66N0LzaE">Subscribe</a>
+</div>
+
+<div class="container">
+
+<!-- ===== START SCREEN ===== -->
+<div class="card center" id="start">
+  <h2>WBHRB Dialysis CBT</h2>
+  <p>Mock Practice Set 2025</p>
+  <ul class="details">
+    <li>✔ 50 Concept-based MCQs</li>
+    <li>✔ Moderate–Hard Difficulty</li>
+    <li>✔ Time Limit: 90 minutes</li>
+    <li>✔ Marks: +2 / −0.5</li>
+    <li>✔ Target Score: ≥65</li>
+  </ul>
+  <button class="start-btn" onclick="startExam()">Start Quiz</button>
+</div>
+
+<!-- ===== EXAM ===== -->
+<div id="exam" style="display:none">
+
+<div class="q-header">
+  <div>
+    <b id="qcount">Question 1 of 50</b><br>
+    <span class="tag">Dialysis • CBT</span>
+  </div>
+  <div class="timer-box" id="timer">01:30:00</div>
+</div>
+
+<div class="card">
+  <div class="question" id="qtext"></div>
+  <div id="opts"></div>
+</div>
+
+<div class="palette" id="palette"></div>
+
+<div class="nav">
+  <button onclick="prev()">Previous</button>
+  <button onclick="next()">Next</button>
+</div>
+</div>
+
+<!-- ===== RESULT ===== -->
+<div id="result" style="display:none"></div>
+
+</div>
+
+<script>
+/* ================= QUESTIONS ================= */
+const questions = [
+["Dialysis primarily helps to remove:",["Plasma proteins","Excess fluid and waste products","Red blood cells","Glucose"],1],
+["Main type of dialysis in hospitals:",["Peritoneal","Hemodialysis","Osmotic","Liver"],1],
+["Dialysis works on:",["Active transport","Diffusion & ultrafiltration","Osmosis only","Endocytosis"],1],
+["Hemodialysis membrane:",["Plastic","Hollow-fiber semipermeable","Metal","Cotton"],1],
+["PD uses membrane:",["Dialyzer","Peritoneum","Skin","Alveoli"],1],
+["Blood flow rate:",["50–100","150–300","500–700","900–1000"],1],
+["Dialysate fluid:",["Supply nutrients","Maintain electrolyte & remove waste","Increase WBC","Reduce proteins"],1],
+["Hemodialysis frequency:",["Daily","2–3/week","Monthly","Emergency"],1],
+["Measured to decide dialysis:",["RBC","Creatinine & GFR","Platelet","ESR"],1],
+["Dialysate contains:",["K Na Ca","Only glucose","Only water","None"],0],
+["Ideal long-term access:",["Peripheral","AV fistula","Central line","None"],1],
+["AV graft:",["Catheter","Synthetic artery-vein","Dialysate","None"],1],
+["Heparin is given to:",["Increase BP","Prevent clotting","Increase time","Reduce itching"],1],
+["Before dialysis check:",["Allergies","Dry wt & vitals","Machine","All"],3],
+["Common complication:",["Hyperglycemia","Hypotension","Appetite","Fever"],1],
+["Muscle cramps due to:",["Rapid fluid removal","Low K","High Na","Low sugar"],0],
+["Disequilibrium presents:",["Headache & nausea","Hypertension","Itching","Diabetes"],0],
+["Ultrafiltration:",["Cells removal","Fluid removal","Protein add","Immunity"],1],
+["PD dwell time:",["Seconds","Hours","Days","Weeks"],1],
+["PD exit infection prevention:",["Antibiotic","Aseptic care","More exchange","All"],1],
+["Machine monitors:",["BP","Flow","Temp","All"],3],
+["Bicarbonate corrects:",["Glucose","Acidosis","Na","K"],1],
+["UF rate:",["Dialysate flow","Fluid/hour","RBC","Pressure"],1],
+["TMP measures:",["Taste","Membrane pressure","Weight","None"],1],
+["Poor dialyzer performance:",["Clot","Low flow","Block","All"],3],
+["Heparin pump:",["Sterilize","Deliver anticoagulant","Warm","Measure"],1],
+["Dialyzed out slowly:",["Urea","Creatinine","Water","Same"],0],
+["Blood leak detector:",["Air","Blood in dialysate","Temp","Electrolytes"],1],
+["Air detector alarm:",["Air in blood","Air in bag","Pressure","Flow"],0],
+["Arterial pressure refers:",["Dialysate","Blood from patient","Room","Pulse"],1],
+["Chest pain during dialysis:",["Hypothermia","MI","Phantom","Dehydration"],1],
+["Hypotension treated by:",["Reduce UF","Trendelenburg","IV fluids","All"],3],
+["Clotting presents:",["High venous","Low flow","Poor clearance","All"],3],
+["Fever cause:",["Dialysate","Infection","Reaction","All"],3],
+["Access check:",["Bruit/thrill","X-ray","ECG","None"],0],
+["PD peritonitis:",["Pain","Cloudy","Fever","All"],3],
+["Air embolism sign:",["SOB","Bradycardia","HTN","None"],0],
+["DDS prevention:",["Slow dialysis","High UF","No heparin","More dialysate"],0],
+["Electrolyte imbalance:",["Hypokalemia","Hyperkalemia","Hypercalcemia","All"],0],
+["Shunt infection sign:",["Redness","Discharge","Fever","All"],3],
+["Dry weight:",["Target post-dialysis","Before","With clothes","None"],0],
+["Interdialytic gain:",["0.5L","1–1.5kg","3–4L","5L"],1],
+["Diet restricts:",["K","P","Na","All"],3],
+["EPO improves:",["Bone","Hb","Electrolyte","Fluid"],1],
+["AV fistula maturity:",["Days","Weeks","Months","Years"],1],
+["Before connecting:",["Vitals","Access","Heparin","All"],3],
+["Ultrafiltrate:",["Clear","Cloudy","Bloody","All"],0],
+["Avoid BP cuff:",["Pain","Protect access","No reason","None"],1],
+["Dialysis adequacy:",["Kt/V","MRI","ECG","EEG"],0]
+];
+
+/* ================= LOGIC ================= */
+let cur=0,ans=new Array(50).fill(null),time=90*60,timerInt;
+
+function startExam(){
+ document.getElementById("start").style.display="none";
+ document.getElementById("exam").style.display="block";
+ timerInt=setInterval(tick,1000);
+ load();
+}
+
+function tick(){
+ let m=Math.floor(time/60),s=time%60;
+ document.getElementById("timer").innerText=
+  `${m}:${s<10?"0":""}${s}`;
+ if(time===300)alert("⚠ 5 minutes left!");
+ if(time--<=0){clearInterval(timerInt);submit()}
+}
+
+function load(){
+ document.getElementById("qcount").innerText=`Question ${cur+1} of 50`;
+ document.getElementById("qtext").innerText=questions[cur][0];
+ let o="";
+ questions[cur][1].forEach((x,i)=>{
+  o+=`<div class="option">
+   <label><input type="radio" name="o" ${ans[cur]==i?"checked":""}
+   onclick="ans[${cur}]=${i};palette()"> ${x}</label></div>`;
+ });
+ document.getElementById("opts").innerHTML=o;
+ palette();
+}
+
+function palette(){
+ let p="";
+ for(let i=0;i<50;i++)
+  p+=`<div class="pal ${ans[i]==null?"na":"ans"}"
+       onclick="cur=${i};load()">${i+1}</div>`;
+ document.getElementById("palette").innerHTML=p;
+}
+
+function next(){cur<49?cur++:submit();load()}
+function prev(){if(cur>0)cur--;load()}
+
+function submit(){
+ clearInterval(timerInt);
+ document.getElementById("exam").style.display="none";
+
+ let c=0,w=0;
+ questions.forEach((q,i)=>{
+  if(ans[i]===q[2])c++;
+  else if(ans[i]!=null)w++;
+ });
+ let score=(c*2)-(w*0.5);
+ if(score<0)score=0;
+ let acc=Math.round((c/50)*100);
+
+ document.getElementById("result").style.display="block";
+ document.getElementById("result").innerHTML=`
+ <div class="card center">
+  <h3>Your Score</h3>
+  <div class="score">${score} / 100</div>
+  <p>${score>=65?"✅ Target Achieved":"⚠ Below Target – Keep Practicing"}</p>
+
+  <div>Accuracy ${acc}%</div>
+  <div class="bar"><div class="fill" style="--w:${acc}%"></div></div>
+
+  <br>
+  <a class="subscribe-btn"
+   href="https://youtube.com/@medinfobengali?si=Ta5u1v3_66N0LzaE"
+   target="_blank">Subscribe Medinfo Bengali</a>
+ </div>`;
+}
+</script>
+
+</body>
+</html>
